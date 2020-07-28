@@ -59,6 +59,9 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     adminlte2-rails (0.0.5)
+    annotate (3.1.1)
+      activerecord (>= 3.2, < 7.0)
+      rake (>= 10.4, < 14.0)
     autoprefixer-rails (9.8.5)
       execjs
     bindex (0.8.1)
@@ -244,6 +247,7 @@ PLATFORMS
 
 DEPENDENCIES
   adminlte2-rails
+  annotate
   bootsnap (>= 1.4.2)
   bootstrap-sass (~> 3.4, >= 3.4.1)
   byebug
