@@ -18,14 +18,14 @@
           = f.text_field :email, class: 'form-control', disabled: disabled
         .form-group
           = f.label :channel
-          = f.select :channel, options_for_select(available_channel_list), {}, { class: 'form-control', disabled: disabled }
+          = f.collection_select(:channel_id, Channel.all, :id, :name, {}, { class: 'form-control', disabled: disabled })
         .form-group
           = f.label :post_count
           = f.text_field :post_count, class: 'form-control', disabled: disabled
         - unless disabled
           .form-group
             %label Upload new avatar
-            = f.file_field :new_avatar, accept: 'image/png,image/jpeg,image/jpg'
+            = f.file_field :new_avatar, accept: Userable::VALID_CONTENT_TYPES.join(',')
             %p.help-block Image will be cropped to 100x100
       .box-footer
         - if disabled

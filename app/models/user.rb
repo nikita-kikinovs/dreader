@@ -1,15 +1,18 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
-  include UserHelper
-  require 'open-uri'
+  include Userable
 
   has_one_attached :avatar
-  has_one :channel
+  belongs_to :channel, foreign_key: :channel_id
 
-  before_save :set_new_avatar, :set_default_channel
+  before_update :set_new_avatar
+  before_validation :set_default_channel, if: :new_record?
 
   validates :name, format: { with: /\A[^0-9`!@#\$%\^&*+_=]+\z/ }
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :post_count, numericality: true
+  validates :post_count, numericality: { greater_than_or_equal_to: 0 }
+  validates :channel_id, inclusion: { in: Channel.pluck(:id) }
 
   attr_accessor :new_avatar, :avatar_updated
 
@@ -39,9 +42,7 @@ class User < ApplicationRecord
   end
 
   def set_default_channel
-    return unless new_record?
-
-    self.channel = Channel.find_by(code: 'delfi')
+    self.channel = Channel.default_channel
   end
 end
 
@@ -49,15 +50,15 @@ end
 #
 # Table name: users
 #
-#  id               :integer          not null, primary key
-#  provider         :string
-#  uid              :string
-#  name             :string
-#  email            :string
-#  channel          :string           default("delfi")
-#  post_count       :string           default("10")
-#  oauth_token      :string
-#  oauth_expires_at :datetime
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+#  id                                                    :bigint           not null, primary key
+#  provider(authorization provider name)                 :string           not null
+#  uid(user id provided by authorization provider)       :string           not null
+#  name(user name)                                       :string           not null
+#  email(user email)                                     :string           not null
+#  channel_id(preferred delfi rss channel)               :integer          not null
+#  post_count(preferred feed post count)                 :integer          default(10), not null
+#  oauth_token(authorization token)                      :string           not null
+#  oauth_expires_at(authorization token expiration time) :datetime         not null
+#  created_at                                            :datetime         not null
+#  updated_at                                            :datetime         not null
 #
