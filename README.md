@@ -1,24 +1,48 @@
-# README
+# dReader
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Used versions
 
-Things you may want to cover:
+Ruby: 2.7.1
 
-* Ruby version
+Rails: 6.0.3.2
 
-* System dependencies
+## Installation
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Clone GIT repository
+```bash
+ git clone https://github.com/nikita-kikinovs/dreader.git
+```
+- Switch to project directory
+- Install the dependencies specified in Gemfile
+ ```bash
+ bundle install
+```
+- Install PostgreSQL using HomeBrew
+ ```bash
+ brew install postgresql
+```
+- Run PostgreSQL server
+ ```bash
+ pg_ctl -D /usr/local/var/postgres start
+```
+- Create database
+ ```bash
+ rake db:create
+```
+- Run migrations
+```bash
+ rake db:migrate
+```
+- Seed data
+```bash
+ rake db:seed
+```
+- Update DELFI RSS Feed channel list
+```bash
+ rake channels:fetch
+```
+- Lauch app
+```bash
+ rails server -p <specify_port>
+```
+- Enjoy your feed reading :)
