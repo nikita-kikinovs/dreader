@@ -12,14 +12,14 @@ Rails: 6.0.3.2
 ```bash
  git clone https://github.com/nikita-kikinovs/dreader.git
 ```
+- Install PostgreSQL using HomeBrew
+ ```bash
+ brew install postgresql
+```
 - Switch to project directory
 - Install the dependencies specified in Gemfile
  ```bash
  bundle install
-```
-- Install PostgreSQL using HomeBrew
- ```bash
- brew install postgresql
 ```
 - Run PostgreSQL server
  ```bash
