@@ -3,7 +3,7 @@
   %head
     %meta{:content => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type'}/
     %meta{:charset => 'UTF-8'}/
-    %title AdminLTE 2 | Log in
+    %title dReader | Log in
     %meta{:content => 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no', :name => 'viewport'}/
     %link{:href => 'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', :rel => 'stylesheet', :type => 'text/css'}/
     = stylesheet_link_tag 'application', media: 'all'
@@ -17,28 +17,8 @@
     .login-box
       .login-logo
         %a{:href => '/'}
-          %b> Admin
-          LTE
-      / /.login-logo
+          %b> d
+          Reader
       .login-box-body
-        %p.login-box-msg Sign in to start your session
-        = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-          .form-group.has-feedback
-            = f.text_field :email, class: 'form-control', autofocus: true
-            %span.glyphicon.glyphicon-envelope.form-control-feedback
-          .form-group.has-feedback
-            = f.password_field :password, class: 'form-control', autocomplete: 'off'
-            %span.glyphicon.glyphicon-lock.form-control-feedback
-          .row
-            .col-xs-8
-              .checkbox.icheck
-                %label
-                  %input{:type => 'checkbox'}/
-                  Remember Me
-            / /.col
-            .col-xs-4
-              = f.submit 'Log in', class: 'btn btn-primary btn-block btn-flat'
-            / /.col
-      / /.login-box-body
-    / /.login-box
+        = sign_in_button
     = javascript_include_tag 'application'

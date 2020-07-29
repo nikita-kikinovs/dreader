@@ -1,0 +1,36 @@
+- disabled = disabled || false
+.col-md-6
+  .box.box-primary
+    .box-header.with-border
+    = form_for @user do |f|
+      - if @user.errors.any?
+        .alert.alert-danger
+          %b= "#{pluralize(@user.errors.count, 'error')} prohibited this profile from being saved:"
+          %ul
+            - @user.errors.full_messages.each do |message|
+              %li= message
+      .box-body
+        .form-group
+          = f.label :name
+          = f.text_field :name, class: 'form-control', disabled: disabled
+        .form-group
+          = f.label :email
+          = f.text_field :email, class: 'form-control', disabled: disabled
+        .form-group
+          = f.label :channel
+          = f.select :channel, options_for_select(available_channel_list), {}, { class: 'form-control', disabled: disabled }
+        .form-group
+          = f.label :post_count
+          = f.text_field :post_count, class: 'form-control', disabled: disabled
+        - unless disabled
+          .form-group
+            %label Upload new avatar
+            = f.file_field :new_avatar, accept: 'image/png,image/jpeg,image/jpg'
+            %p.help-block Image will be cropped to 100x100
+      .box-footer
+        - if disabled
+          = link_to 'Edit', edit_user_path, class: 'btn btn-primary'
+          = link_to 'Back', root_path, class: 'btn btn-default'
+        - else
+          = f.submit 'Save', class: 'btn btn-primary', type: :submit
+          = link_to 'Back', user_path, class: 'btn btn-default'

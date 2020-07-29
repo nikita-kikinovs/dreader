@@ -1,5 +1,17 @@
 class User < ApplicationRecord
+  include UserHelper
+  require 'open-uri'
+
   has_one_attached :avatar
+
+  before_save :set_new_avatar, unless: proc { avatar_updated }
+
+  validates :name, format: { with: /\A[^0-9`!@#\$%\^&*+_=]+\z/ }
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :post_count, numericality: true
+  validate :check_inclusion
+
+  attr_accessor :new_avatar, :avatar_updated
 
   def self.from_omniauth(auth)
     where(provider: auth[:provider], uid: auth[:uid]).first_or_initialize.tap do |user|
@@ -8,8 +20,7 @@ class User < ApplicationRecord
         user.email = auth.info.email
         user.provider = auth.provider
         user.uid = auth.uid
-        image = open(auth.info.image)
-        user.avatar.attach(image)
+        user.update_avatar(open(auth.info.image), user, skip_resize: true)
       end
 
       user.oauth_token = auth.credentials.token
@@ -17,6 +28,18 @@ class User < ApplicationRecord
 
       user.save!
     end
+  end
+
+  private
+
+  def set_new_avatar
+    return if new_avatar.blank?
+
+    update_avatar(new_avatar, self)
+  end
+
+  def check_inclusion
+    binding.pry
   end
 end
 
