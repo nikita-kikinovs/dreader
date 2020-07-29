@@ -5,13 +5,17 @@
     %i.fa.fa-flag-o
   .info-box-content
     %span.info-box-text Category
-    %span.info-box-number= @feed.channel.title
+    %span.info-box-number= current_user.channel.name
+    %span.progress-description{ style: 'font-style: italic;' }= max_post_count
 
 %ul.timeline
-  %li.time-label
-    %span.bg-red
-      10 Feb. 2014
-  - @feed.items.each do |item|
+  - current_item_day = nil
+  - @feed_items.each do |item|
+    - if current_item_day != item.pubDate.day
+      - current_item_day = item.pubDate.day
+      %li.time-label
+        %span.bg-red
+          = item.pubDate.strftime("%a %b #{item.pubDate.day.ordinalize}")
     %li
       %i.fa.fa-newspaper-o.bg-blue
       .timeline-item

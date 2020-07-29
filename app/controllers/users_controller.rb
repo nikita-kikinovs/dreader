@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show update edit]
 
@@ -22,6 +24,6 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def safe_user_params
-    params.require(:user).permit(:name, :email, :channel, :post_count, :new_avatar)
+    params.require(:user).permit(:name, :email, :channel_id, :post_count, :new_avatar)
   end
 end
