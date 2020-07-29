@@ -3,13 +3,13 @@ class User < ApplicationRecord
   require 'open-uri'
 
   has_one_attached :avatar
+  has_one :channel
 
-  before_save :set_new_avatar, unless: proc { avatar_updated }
+  before_save :set_new_avatar, :set_default_channel
 
   validates :name, format: { with: /\A[^0-9`!@#\$%\^&*+_=]+\z/ }
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :post_count, numericality: true
-  validate :check_inclusion
 
   attr_accessor :new_avatar, :avatar_updated
 
@@ -33,13 +33,15 @@ class User < ApplicationRecord
   private
 
   def set_new_avatar
-    return if new_avatar.blank?
+    return if new_avatar.blank? || avatar_updated
 
     update_avatar(new_avatar, self)
   end
 
-  def check_inclusion
-    binding.pry
+  def set_default_channel
+    return unless new_record?
+
+    self.channel = Channel.find_by(code: 'delfi')
   end
 end
 
