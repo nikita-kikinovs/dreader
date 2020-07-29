@@ -10,13 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_28_194933) do
+ActiveRecord::Schema.define(version: 2020_07_29_152127) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -33,15 +36,22 @@ ActiveRecord::Schema.define(version: 2020_07_28_194933) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "channels", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
-    t.string "provider"
-    t.string "uid"
-    t.string "name"
-    t.string "email"
-    t.string "channel", default: "delfi"
-    t.string "post_count", default: "10"
-    t.string "oauth_token"
-    t.datetime "oauth_expires_at"
+    t.string "provider", null: false, comment: "authorization provider name"
+    t.string "uid", null: false, comment: "user id provided by authorization provider"
+    t.string "name", null: false, comment: "user name"
+    t.string "email", null: false, comment: "user email"
+    t.string "channel_id", null: false, comment: "preferred delfi rss channel"
+    t.string "post_count", default: "10", null: false, comment: "preferred feed post count"
+    t.string "oauth_token", null: false, comment: "authorization token"
+    t.datetime "oauth_expires_at", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

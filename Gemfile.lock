@@ -163,6 +163,7 @@ GEM
     omniauth-oauth2 (1.6.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.9)
+    pg (1.2.3)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -226,7 +227,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.2)
     temple (0.8.2)
     thor (1.0.1)
     thread_safe (0.3.6)
@@ -267,6 +267,7 @@ DEPENDENCIES
   listen (~> 3.2)
   omniauth
   omniauth-facebook
+  pg
   pry (~> 0.12.2)
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.2)
@@ -274,7 +275,6 @@ DEPENDENCIES
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
-  sqlite3 (~> 1.4)
   tzinfo-data
   web-console (>= 3.3.0)
   webdrivers
