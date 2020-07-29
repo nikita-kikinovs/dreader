@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_29_152127) do
+ActiveRecord::Schema.define(version: 2020_07_28_194933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,13 +48,15 @@ ActiveRecord::Schema.define(version: 2020_07_29_152127) do
     t.string "uid", null: false, comment: "user id provided by authorization provider"
     t.string "name", null: false, comment: "user name"
     t.string "email", null: false, comment: "user email"
-    t.string "channel_id", null: false, comment: "preferred delfi rss channel"
-    t.string "post_count", default: "10", null: false, comment: "preferred feed post count"
+    t.integer "channel_id", null: false, comment: "preferred delfi rss channel"
+    t.integer "post_count", default: 10, null: false, comment: "preferred feed post count"
     t.string "oauth_token", null: false, comment: "authorization token"
-    t.datetime "oauth_expires_at", null: false
+    t.datetime "oauth_expires_at", null: false, comment: "authorization token expiration time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["channel_id"], name: "index_users_on_channel_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "users", "channels"
 end

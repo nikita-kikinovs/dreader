@@ -35,12 +35,13 @@ gem 'jquery-rails'
 gem 'omniauth'
 gem 'omniauth-facebook'
 
+# automation gems
+gem 'whenever', require: false
+
 gem 'rss'
 gem 'image_processing'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry', '~> 0.12.2'
 end
 
@@ -53,6 +54,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'haml-rails', '~> 2.0'
   gem 'annotate'
+  gem 'pry-rails'
 end
 
 group :test do

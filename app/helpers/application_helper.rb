@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def sign_in_button
     link_to '/auth/facebook', class: 'btn btn-block btn-social btn-facebook login-button' do
