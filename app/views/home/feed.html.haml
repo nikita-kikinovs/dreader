@@ -1,1 +1,26 @@
-%h3 DELFI Posts
+%h2 DELFI RSS Feed
+
+.info-box
+  %span.info-box-icon.bg-green
+    %i.fa.fa-flag-o
+  .info-box-content
+    %span.info-box-text Category
+    %span.info-box-number= @feed.channel.title
+
+%ul.timeline
+  %li.time-label
+    %span.bg-red
+      10 Feb. 2014
+  - @feed.items.each do |item|
+    %li
+      %i.fa.fa-newspaper-o.bg-blue
+      .timeline-item
+        %span.time
+          %i.fa.fa-clock-o
+          = item.pubDate.to_formatted_s(:long_ordinal)
+        %h3.timeline-header
+          %a{ href: item.link, target: '_blank' }= item.title
+        .timeline-body
+          = item.description.html_safe
+  %li
+    %i.fa.fa-clock-o.bg-gray
