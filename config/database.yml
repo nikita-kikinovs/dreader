@@ -17,3 +17,5 @@ test:
 production:
   <<: *default
   database: dreader_prod
+  username: dreader
+  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
