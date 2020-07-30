@@ -13,7 +13,7 @@ module Userable
       user.errors.add(:base, :wrong_attachment_format, message: 'Wrong attachment format')
       throw :abort
     else
-      scaled_image = skip_resize ? file : ImageProcessing::MiniMagick.source(file).resize_to_limit!(100, 100)
+      scaled_image = skip_resize ? file : ImageProcessing::MiniMagick.source(file).resize_to_fit!(100, 100)
 
       user.avatar_updated = true
       user.avatar.attach(io: scaled_image, filename: "user_#{user.uid}_avatar.jpg")
