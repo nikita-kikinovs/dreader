@@ -16,6 +16,7 @@ class User < ApplicationRecord
 
   attr_accessor :new_avatar, :avatar_updated
 
+  # checks if user is present in db, otherwise creates new user using received data
   def self.from_omniauth(auth)
     where(provider: auth[:provider], uid: auth[:uid]).first_or_initialize.tap do |user|
       if user.new_record?
@@ -35,12 +36,14 @@ class User < ApplicationRecord
 
   private
 
+  # callback method that sets new user avatar
   def set_new_avatar
     return if new_avatar.blank? || avatar_updated
 
     update_avatar(new_avatar, self)
   end
 
+  # callback method that sets user default channel on create
   def set_default_channel
     self.channel = Channel.default_channel
   end

@@ -21,7 +21,7 @@
 #
 set :output, 'log/cron_log.log'
 
-# schedules to fetch delfi rss feed
+# schedules to fetch delfi rss feed with cron in production (must update crontab to work)
 every :week, at: '4:30 am' do
   rake 'channels:fetch'
 end
