@@ -3,6 +3,7 @@
 class Channel < ApplicationRecord
   DEFAULT_CHANNEL = 'delfi'
 
+  # returns default channel
   def self.default_channel
     find_by(code: DEFAULT_CHANNEL)
   end
