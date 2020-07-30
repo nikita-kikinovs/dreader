@@ -41,8 +41,11 @@ Rails: 6.0.3.2
 ```bash
  rake channels:fetch
 ```
-- Lauch app
+- Copy master.key file to dreader/config directory
+- Launch app server
 ```bash
- rails server -p <specify_port>
+ rails server
 ```
+- Go to "localhost:3000" in browser
+- Authenticate using FaceBook credentials
 - Enjoy your feed reading :)
